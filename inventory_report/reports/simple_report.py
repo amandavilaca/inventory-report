@@ -12,18 +12,15 @@ class SimpleReport:
         expiration_dates = list()
         companies = list()
 
-        manufacturing_dates = [product['data_de_fabricacao']
-                               for product in products
-                               if product.get('data_de_fabricacao')]
-
-        expiration_dates = [product['data_de_validade']
-                            for product in products
-                            if datetime.strptime(
-            product.get('data_de_validade'), '%Y-%m-%d').date() >= today_date]
-
-        companies = [product['nome_da_empresa']
-                     for product in products
-                     if product.get('nome_da_empresa')]
+        for product in products:
+            if product.get('data_de_fabricacao'):
+                manufacturing_dates.append(product['data_de_fabricacao'])
+            if product.get('data_de_validade') and (
+                product['data_de_validade'] >= str(today_date)
+            ):
+                expiration_dates.append(product['data_de_validade'])
+            if product.get('nome_da_empresa'):
+                companies.append(product['nome_da_empresa'])
 
         oldest_date = min(manufacturing_dates, default=None)
         closest_date = min(expiration_dates, default=None)
