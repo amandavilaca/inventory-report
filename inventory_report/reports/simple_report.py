@@ -26,8 +26,10 @@ class SimpleReport:
         closest_date = min(expiration_dates, default=None)
         company_bigger_stock = Counter(companies).most_common(1)[0][0]
 
-        output = f"Data de fabricação mais antiga: {oldest_date}\n"
-        output += f"Data de validade mais próxima: {closest_date}\n"
-        output += f"Empresa com mais produtos: {company_bigger_stock}"
+        output = (
+            f"Data de fabricação mais antiga: {oldest_date}\n"
+            f"Data de validade mais próxima: {closest_date}\n"
+            f"Empresa com mais produtos: {company_bigger_stock}"
+        )
 
         return output
