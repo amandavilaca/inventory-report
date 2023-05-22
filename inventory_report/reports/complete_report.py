@@ -1,5 +1,6 @@
 from typing import Dict, List
 from collections import Counter
+
 from inventory_report.reports.simple_report import SimpleReport
 
 

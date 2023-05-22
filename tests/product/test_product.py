@@ -1,4 +1,5 @@
 from unittest import TestCase
+
 from inventory_report.inventory.product import Product
 
 
