@@ -16,8 +16,8 @@ class Inventory:
         }
 
     report_mapping = {
-            "simples": SimpleReport.generate,
-            "completo": CompleteReport.generate,
+            "simples": SimpleReport(),
+            "completo": CompleteReport(),
         }
 
     @staticmethod
@@ -31,9 +31,12 @@ class Inventory:
         if report_type not in Inventory.report_mapping:
             raise ValueError("Tipo de relatório inválido")
 
-        importer_strategy = Inventory.importer_mapping[extension]()
+        importer_class = Inventory.importer_mapping[extension]
+        importer_strategy = importer_class()
 
-        products = importer_strategy.import_data(file_path)
+        list_products = importer_strategy.import_data(file_path)
 
         report_method = Inventory.report_mapping[report_type]
-        return report_method(products)
+        report = report_method.generate(list_products)
+
+        return report
